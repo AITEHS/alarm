@@ -11,28 +11,23 @@ acc_night_hr, acc_night_min = "23", "30"
 start_time = int(acc_morn_hr)*60 + int(acc_morn_min)
 end_time = int(acc_night_hr)*60 + int(acc_night_min)
 
-
-def playsong(Path_to_song, Resol = "mp3"):
-    while True:
-        if start_time <= current_time and end_time >= current_time:
+while True:
+    if start_time <= current_time and end_time >= current_time:
+        try:
+            time.sleep(30*60)
+            play(AudioSegment.from_file( "/home/aitehs/Downloads/Gerudo Valley - The Legend of Zelda Ocarina Of Time.mp3"))
+        except KeyboardInterrupt:
+            des = input( "\n continue or stop:")
+            if des == "stop":
+                break
+            else:
+                pass
             try:
-                time.sleep(30*60)
-                play(AudioSegment.from_file("/home/aitehs/Downloads/Gerudo Valley - The Legend of Zelda Ocarina Of Time.mp3")
+                time.sleep(10*60)
+                play(AudioSegment.from_file( "/home/aitehs/Downloads/Fire Emblem Shadow Dragon OST - 28 - Come, Join Us.mp3"))
             except KeyboardInterrupt:
-                des = input( "\n continue or stop:")
+                des = input("\n continue or stop:")
                 if des == "stop":
                     break
                 else:
-                    pass
-                try:
-                    time.sleep(10*60)
-                    play(AudioSegment.from_file("/home/aitehs/Downloads/Fire Emblem Shadow Dragon OST - 28 - Come, Join Us.mp3")
-                except KeyboardInterrupt:
-                    des = input("\n continue or stop:")
-                    if des == "stop":
-                        break
-                    else:
-                        continue
-                    
-
-playsong()
+                    continue
