@@ -29,10 +29,22 @@ def playnn(audio_segment):
 def countdown(interval):    
             for i in range(interval-1,-1,-1):
                 for j in range(59,-1,-1):
-                    sys.stdout.write(f'\rDuration: {i} Minutes {j} Seconds to go')
-                    time.sleep(1)
-                    sys.stdout.flush() 
-
+                    if i >= 10 and j >= 10:
+                        sys.stdout.write(f'\rDuration: {i} Minutes {j} Seconds to go')
+                        time.sleep(1)
+                        sys.stdout.flush() 
+                    elif i < 10 and j >= 10:
+                        sys.stdout.write(f'\rDuration: {"0" + str(i)} Minutes {j} Seconds to go')
+                        time.sleep(1)
+                        sys.stdout.flush() 
+                    elif i >= 10 and j < 10:
+                        sys.stdout.write(f'\rDuration: {i} Minutes {"0" + str(j)} Seconds to go')
+                        time.sleep(1)
+                        sys.stdout.flush() 
+                    elif i < 10 and j < 10:
+                        sys.stdout.write(f'\rDuration: {"0" + str(i)} Minutes {"0" + str(j)} Seconds to go')
+                        time.sleep(1)
+                        sys.stdout.flush() 
 
 while True:
     try:
