@@ -1,24 +1,20 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 #THIS CODE IS CREATED TO REMIND ME TO TAKE BREAKS FROM PC AND DO EXCERCISES 
 #TODO: make amount of intervals changable; create tkinter interface
 import time
 import sys, os
 import subprocess
 from tempfile import NamedTemporaryFile
-from pydub.utils import get_player_name, make_chunks
-from pydub import AudioSegment
-from pydub.playback import play
+from playsound import playsound
 from datetime import datetime
+
+clear = lambda: os.system('cls')
+
 
 current_hour = datetime.now().hour              #\
 current_minute = datetime.now().minute          # > Current time
 current_time = current_hour*60 + current_minute #/
 
-def _playnn_with_ffplay(seg): #Play sound func
-    PLAYER = get_player_name()
-    with NamedTemporaryFile("w+b", suffix=".wav") as f:
-        seg.export(f.name, "wav")
-        subprocess.call([PLAYER, "-nodisp", "-autoexit", "-hide_banner", f.name],stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 def timer(path,*time_val):
     global stop 
@@ -26,18 +22,18 @@ def timer(path,*time_val):
         try:
             countdown(val) #Set time
             while True:
-                _playnn_with_ffplay(AudioSegment.from_file( path))
+                playsound(path)
                 time.sleep(0.5)
         except KeyboardInterrupt:
-            print( "\r  " )#new line
-            sys.stdout.write('\033[1A' + "continue or stop: " + '\033[K') # up 1 line and clean 
+            clear()
+            sys.stdout.write("continue or stop: ") # up 1 line and clean 
             dec = input()   
             if dec == "stop":
                 stop = 1
+                
             else:
                 stop = 0 
-                print( '\033[2A'  )# up 2 lines in console
-
+                clear()
 def countdown(interval):    
     for i in range(interval-1,-1,-1):
         for j in range(59,-1,-1):
@@ -60,11 +56,13 @@ def countdown(interval):
 
 while True: #Timer
     try:  
-        timer("/home/aitehs/Downloads/music/SSBM_Misc_Narrator/Classic and Target Test modes/nr_1p03.dsp.wav", 0,0,1,1)
+        timer("./WD/W6.wav", 30)
         if stop:
             break
-        timer("/home/aitehs/Downloads/music/SSBM_Misc_Narrator/Narrator (JP)/nr_name10.dsp.wav", 0)
-    except KeyboardInterrupt:
-        print( "\r  ")
-        print('\033[1A' + "Bye bye" + '\033[K')
+        timer("./WD/D4.wav", 10)
+        if stop:
+            break
+    except KeyboardInterrupt or EOFError:
+        
+        print( "Bye bye" )
         break
